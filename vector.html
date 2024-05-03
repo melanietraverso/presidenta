@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <title> Vector 6 </title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: rgb(199, 61, 114);
+            }
+            </style>
+    </head>
+<body>
+    
+  <script>
+    
+function EsPrimo(n) {
+  if (n <= 1) return false;
+  if (n <= 3) return true;
+  if (n % 2 === 0 || n % 3 === 0) return false;
+  let i = 5;
+  while (i * i <= n) {
+    if (n % i === 0 || n % (i + 2) === 0) return false;
+    i += 6;
+  }
+  return true;
+}
+function DescomponerYVerificar(numero) {
+  let sumaDigitos = 0;
+  let num = numero;
+  let descomposicion = [];
+  while (num > 0) {
+    let digito = num % 10;
+    descomposicion.unshift(digito);
+    sumaDigitos += digito;
+    num = Math.floor(num / 10);
+  }
+  const esPrimo = EsPrimo(sumaDigitos);
+  return { numero, descomposicion, sumaDigitos, esPrimo };
+}
+function NumerosPresidenta(a, b) {
+  let resultados = [];
+  for (let i = a; i <= b; i++) {
+    if (EsPrimo(i)) {
+      resultados.push(DescomponerYVerificar(i));
+    }
+  }
+  return resultados;
+}
+const entrada = prompt("Ingrese los dos numeros enteros  de 10 a 50:");
+const [a, b] = entrada.split(" ").map(Number);
+
+const resultados = NumerosPresidenta(a, b);
+document.write("<h2>Resultados:</h2>");
+resultados.forEach(resultado => {
+  const { numero, descomposicion, sumaDigitos, esPrimo } = resultado;
+  const descomposicionTexto = descomposicion.join(" + ");
+  document.write(`<p>${numero} (${descomposicionTexto} = ${sumaDigitos} es primo: ${esPrimo})</p>`);
+});
+
+</script>
+</body>
+</html>
